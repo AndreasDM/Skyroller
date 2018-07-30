@@ -23,22 +23,15 @@ public class PlayerController : MonoBehaviour {
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
 
         rb.AddForce(movement * speed);
+    }
 
+    private void Update()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (allowedToJump)
+            // allow jumping if we are on the 'ground'
+            if (gameObject.transform.position.y <= 0.5f && gameObject.transform.position.y >= 0.0f)
                 rb.AddForce(new Vector3(0, jumpForce, 0));
         }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        // vi har lov til å hoppe dersom vi er på bakken
-        allowedToJump = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        allowedToJump = false;
     }
 }
