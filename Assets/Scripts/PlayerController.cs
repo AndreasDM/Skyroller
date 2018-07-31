@@ -39,5 +39,27 @@ public class PlayerController : MonoBehaviour {
             if (gameObject.transform.position.y >= 0.48f && gameObject.transform.position.y <= 0.54f)
                 rb.AddForce(new Vector3(0, jumpForce, 0));
         }
+
+        if (HasFallenDown())
+        {
+            ResetVelocity();
+            ResetPosition();
+        }
+    }
+
+    private bool HasFallenDown()
+    {
+        return gameObject.transform.position.y < -10f;
+    }
+
+    private void ResetPosition()
+    {
+        gameObject.transform.position = Vector3.zero;
+    }
+
+    private void ResetVelocity()
+    {
+        rb.velocity.Set(0, 1, -5);
+        rb.Sleep();
     }
 }

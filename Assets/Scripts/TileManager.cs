@@ -16,7 +16,14 @@ public class TileManager : MonoBehaviour {
 
         for (int i = 0; i < tilesVisible; ++i)
         {
-            SpawnTile();
+            if (i == 0)
+            {   // let first tile be the clear one
+                SpawnTile(0);
+            }
+            else
+            {
+                SpawnTile();
+            }
         }
     }
 
@@ -28,11 +35,19 @@ public class TileManager : MonoBehaviour {
         }
     }
 
-    private void SpawnTile()
+    private void SpawnTile(int prefab = -1)
     {
         GameObject go;
         int i = Random.Range(0, 5);
-        go = Instantiate(tilePrefabs[i]) as GameObject;
+        if (prefab == 0)
+        {
+            go = Instantiate(tilePrefabs[0]) as GameObject;
+        }
+        else
+        {
+            go = Instantiate(tilePrefabs[i]) as GameObject;
+        }
+
         go.transform.SetParent(transform); // Make tilemanager the parent of new tiles
         // spawn new tile at spawnlocation
         go.transform.position = Vector3.forward * spawnZlocation;
