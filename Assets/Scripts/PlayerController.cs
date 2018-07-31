@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     public float speed;
     public float jumpForce;
+    public float maxSpeed;
 
     private Rigidbody rb;
     private bool allowedToJump;
@@ -22,15 +23,20 @@ public class PlayerController : MonoBehaviour {
 
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical);
 
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+
         rb.AddForce(movement * speed);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             // allow jumping if we are on the 'ground'
-            if (gameObject.transform.position.y <= 0.5f && gameObject.transform.position.y >= 0.0f)
+            if (gameObject.transform.position.y >= 0.48f && gameObject.transform.position.y <= 0.54f)
                 rb.AddForce(new Vector3(0, jumpForce, 0));
         }
     }
