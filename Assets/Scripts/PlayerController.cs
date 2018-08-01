@@ -33,10 +33,10 @@ public class PlayerController : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             // allow jumping if we are on the 'ground'
-            if (gameObject.transform.position.y >= 0.48f && gameObject.transform.position.y <= 0.54f)
+            if (gameObject.transform.position.y >= 0.48f && gameObject.transform.position.y <= 0.9f)
                 rb.AddForce(new Vector3(0, jumpForce, 0));
         }
 
